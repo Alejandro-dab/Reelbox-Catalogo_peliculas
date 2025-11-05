@@ -64,26 +64,27 @@ if ($result === false) {
                             
                             <!-- Checkbox Visto -->
                             <div class="flex items-center space-x-1 bg-gray-700 p-1 rounded-md text-white text-sm">
+                                <!-- 2. Quitamos 'disabled' y añadimos 'onchange' -->
                                 <input type="checkbox" data-peli-id="<?php echo $row['id_peli']; ?>" class="casilla" 
                                     onchange="handleVisto(<?php echo $row['id_peli']; ?>, this.checked)">
                                 <span>Visto</span>
                             </div>
 
                             <!-- Botón de Eliminar (Llama a una función JS para usar SweetAlert y la API) -->
-                            <button onclick="handleDelete(<?php echo $row['id_peli']; ?>, '<?php echo addslashes($row['nombre_peli']); ?>')" 
+                            <button onclick="handleDelete(event, <?php echo $row['id_peli']; ?>, '<?php echo htmlspecialchars($row['nombre_peli'], ENT_QUOTES); ?>')" 
                                 class="bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition duration-150 shadow-md">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
                         
-                        <div class="movie" onclick="handleViewDetails(<?php echo $row['id_peli']; ?>, '<?php echo addslashes($row['nombre_peli']); ?>', '<?php echo addslashes($row['sinopsis_peli']); ?>', '<?php echo addslashes($row['imagen_url_peli'] ?: 'https://placehold.co/250x150/2563eb/ffffff?text=No+Img'); ?>')">
+                        <div class="movie" onclick="handleViewDetails(<?php echo $row['id_peli']; ?>, '<?php echo htmlspecialchars($row['nombre_peli'], ENT_QUOTES); ?>', '<?php echo htmlspecialchars($row['sinopsis_peli'], ENT_QUOTES); ?>', '<?php echo htmlspecialchars($row['imagen_url_peli'] ?: 'https://placehold.co/250x150/2563eb/ffffff?text=No+Img', ENT_QUOTES); ?>')">
                             <!-- Usamos URL para la imagen -->
-                            <img src="<?php echo $row['imagen_url_peli'] ?: 'https://placehold.co/250x150/2563eb/ffffff?text=No+Img'; ?>" 
+                            <img src="<?php echo htmlspecialchars($row['imagen_url_peli'] ?: 'https://placehold.co/250x150/2563eb/ffffff?text=No+Img'); ?>" 
                                 alt="Pelicula" class="movie-poster" 
                                 onerror="this.onerror=null;this.src='https://placehold.co/250x150/4b5563/ffffff?text=No+Image';">
                             <div class="movie-info">
-                                <h3 class="movie-title"><?php echo $row['nombre_peli']; ?></h3>
-                                <p class="movie-synopsis"><?php echo $row['sinopsis_peli']; ?></p>
+                                <h3 class="movie-title"><?php echo htmlspecialchars($row['nombre_peli']); ?></h3>
+                                <p class="movie-synopsis"><?php echo htmlspecialchars($row['sinopsis_peli']); ?></p>
                             </div>
                         </div>
                     </div>
@@ -93,6 +94,7 @@ if ($result === false) {
         </div>
     </main>
 
+<script src="assets/js/visto.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
