@@ -50,9 +50,10 @@ if ($result === false) {
                                 <img src="assets/img/icon_añadir_1.png" alt="Agregar Título" class="agregar">
                             </div>
                         </div>
+                        <!-- Reutilizare clases solo para que no queden sin estilo -->
                         <div class="movie-info">
                             <h3 class="movie-title">Agregar</h3>
-                            <p class="movie-synopsis">Haz clic para agregar título</p>
+                            <p class="movie-synopsis">Haz clic para agregar título</p> 
                         </div>
                     </a>
                 </div>

@@ -1,59 +1,70 @@
-# 🎬 Catálogo de Títulos (CRUD Monolítico con Enfoque en PDO)
+# 🎬 ReelBox: Administrador de Catálogo de Películas
 
-Este proyecto es la tercera pieza del portafolio y se centra en la demostración de un **CRUD (Crear, Leer, Actualizar, Eliminar) robusto, seguro y performante** dentro de una arquitectura **monolítica de PHP/HTML/CSS**.
+ReelBox es una aplicación web full-stack diseñada para la administración eficiente de un catálogo personal de películas. Este proyecto fue refactorizado desde una base de código PHP heredada a una arquitectura moderna, desacoplada y orientada a servicios, demostrando principios sólidos de desarrollo de API y manipulación dinámica del DOM. Demuestra la refactorización de una aplicación PHP heredada a una arquitectura moderna orientada a servicios (API).
 
-El objetivo principal fue refactorizar una estructura inicial de proyecto escolar y transformarla en un módulo de gestión de datos listo para el mercado, priorizando la **seguridad transaccional** y el **diseño funcional**.
-
----
+Este proyecto transforma un sistema monolítico tradicional (que recarga la página con cada acción) en una aplicación web dinámica (estilo SPA) para la gestión de un catálogo de películas. Demuestra la separación de responsabilidades (Backend/Frontend), la manipulación asíncrona de datos y una fuerte mejora en la experiencia de usuario (UX).
 
 ## ✨ Características Clave (Enfoque CRUD)
 
-* **Seguridad de Datos (PDO):** Implementación rigurosa de sentencias preparadas utilizando la librería **PDO (PHP Data Objects)** en todas las operaciones de inserción, actualización y eliminación.
-    * Esto garantiza una defensa robusta contra el ataque de seguridad número uno en aplicaciones web: la **Inyección SQL**.
-* **Diseño Funcional y Estético (UI/UX):** Interfaz de usuario limpia, responsiva y con manejo de tarjetas (`card-based`) para la visualización de títulos. Se han añadido efectos **JavaScript** para mejorar la validación y la experiencia de interacción.
-* **Operaciones Fundamentales (GET, POST, DELETE):** Implementación completa de las operaciones de alta demanda para la gestión de registros:
-    * **GET (Lectura):** Despliegue dinámico de todos los registros del catálogo.
-    * **POST (Creación):** Formulario seguro para la inserción de nuevos títulos.
-    * **DELETE (Eliminación):** Mecanismo de eliminación directa y segura.
-* **Manejo de Conexión:** Uso de un archivo `conexion.php` modular para la gestión eficiente y centralizada de la conexión a la base de datos MySQL.
+*  Arquitectura Híbrida (Server-Side + Client-Side): La aplicación utiliza una carga inicial renderizada por el servidor (PHP while loop) para un Time-to-Content rápido, mientras que todas las operaciones posteriores (Crear, Eliminar) se manejan asíncronamente en el lado del cliente (JavaScript).
+*  Refactorización a API RESTful: Se migraron múltiples scripts PHP (agregar_titulos.php, delete_titulos.php) a un único endpoint de API (api/peliculas.php) que gestiona la lógica de negocio y responde con JSON.
+* CRUD Asíncrono (Fetch API): Todas las operaciones de modificación de datos utilizan la Fetch API de JavaScript para comunicarse con el backend sin necesidad de recargar la página.
+* UI Reactiva con SweetAlert2: Se reemplazaron las alertas y confirmaciones nativas del navegador (alert(), confirm()) por modales interactivos y estéticos de SweetAlert2, mejorando drásticamente la UX.
+* Persistencia de Estado en Cliente (localStorage): La funcionalidad "Visto" se gestiona 100% en el cliente, utilizando localStorage para mantener el estado de la UI entre sesiones sin consultar la base de datos.
+* Modularidad de Código: El proyecto está estructurado con una separación clara de archivos por responsabilidad:
+    + index.php (Vista/Cliente)
+    + api/conexion.php (Configuración de BD)
+    + api/peliculas.php (Controlador de API)
+    + assets/js/main.js (Lógica CRUD)
+    + assets/js/visto.js (Lógica de UI)
+    + assets/css/styles.css (Estilos)
 
 ---
 
-## 🛡️ Declaración de Alcance y Prioridad Estratégica
+## 🛠️ Stack Tecnológico
+Este proyecto utiliza un stack LAMP modernizado, enfocado en la modularidad.
 
-Esta sección es crucial para contextualizar el proyecto y demostrar toma de decisiones madura.
+### Backend y Base de Datos
 
-**Evolución del Proyecto:**
+* PHP: Como lenguaje principal para la lógica de negocio y el endpoint de la API.
+* MySQL: Base de datos relacional para la persistencia de datos.
+* API RESTful: Un endpoint único (api/peliculas.php) que maneja métodos HTTP (POST, DELETE) y responde con JSON.
+* MySQLi (Orientado a Objetos): Extensión de PHP para la interacción segura y moderna con la base de datos.
 
-La versión inicial de este proyecto incluía un sistema de autenticación (Login/Registro) desarrollado con el enfoque de **"proyecto escolar"** (utilizando `mysql_query` y almacenamiento de contraseñas inseguro).
+### Frontend (Cliente)
 
-Para cumplir con estándares profesionales y la prioridad del portafolio, se tomó la decisión estratégica de **eliminar por completo** dicho código obsoleto.
+* HTML5 y PHP: Utilizados en index.php para la renderización híbrida.
+* CSS3: Estilos personalizados y modulares (assets/css/styles.css).
+* JavaScript (ES6+): Modularizado (assets/js/) para manejar toda la lógica del cliente, incluyendo:
+* Fetch API: Para todas las solicitudes asíncronas.
+* Manipulación del DOM: Para la interactividad de la UI.
+* LocalStorage API: Para la persistencia del estado "Visto".
+* SweetAlert2: Librería externa para una UX mejorada en modales y notificaciones.
+* TailwindCSS (CDN): Utilizado para clases de utilidad rápidas (como en los botones de acción y modales) sobre los estilos CSS base.
 
-* **El Foco:** Se optó por **priorizar** la inversión de tiempo en la mejora de la **seguridad transaccional (PDO)** y la **calidad de la UI** para el CRUD, que es la funcionalidad de negocio central del proyecto.
-* **Demostración de Madurez:** Al omitir la reconstrucción del módulo de autenticación (ya cubierto en el Proyecto 2), se demuestra la capacidad de un desarrollador para:
-    1.  Identificar y rechazar código inseguro.
-    2.  Priorizar el alcance para entregar la funcionalidad más valiosa (CRUD) con alta calidad y seguridad.
+### Entorno de Desarrollo
+* XAMPP: Entorno de desarrollo local Apache/MySQL/PHP.
+* Git & GitHub: Control de versiones.
 
----
+## 🚀 Instalación y Puesta en Marcha
 
-## 🚀 Instalación y Acceso (Modo Demo)
+### Requisitos:
+Un entorno de servidor local como XAMPP (Apache, MySQL, PHP).
 
-### Tecnologías
+### Pasos:
 
-* **Backend:** PHP (Monolítico)
-    * **Conexión:** PDO
-* **Base de Datos:** MySQL
-* **Frontend:** HTML5, CSS3, Bootstrap (Estructura) y JavaScript (Efectos y Validación).
+1. Clonar el Repositorio:
+Clona el proyecto dentro de tu directorio de trabajo del servidor local (ej. C:\xampp\htdocs).
+git clone [https://github.com/Alejandro-dab/Reelbox-Catalogo_peliculas.git]
 
-### Pasos
+2. Crear la Base de Datos:
+Crea una nueva base de datos llamada eqh.
+Selecciona la base de datos eqh y ve a la pestaña "Importar".
+Importa el archivo bd/eqh.sql para crear la tabla Peliculas y poblarla con datos de ejemplo.
 
-1.  **Clonar el Repositorio**
-2.  **Configurar Base de Datos:** Crear la BD e importar el script SQL de la tabla de títulos.
-3.  **Verificar Conexión:** Asegúrate de que las credenciales en `conexion.php` sean válidas para tu entorno local.
-4.  **Acceso Directo (Demo):** Inicia tu servidor Apache y accede directamente al archivo principal del catálogo:
+3. Ajustar api/conexion.php:
+Abre el archivo api/conexion.php.
+Confirma que las credenciales ($host, $user, $password, $db_name) coinciden con tu configuración de MySQL. (Por defecto en XAMPP, $user = "root" y $password = "").
 
-    ```
-    http://localhost/nombre_proyecto/titulos.php
-    ```
-
-    Esto permite la **evaluación inmediata** de las funcionalidades CRUD sin necesidad de registrarse.
+4. Inicia los servicios de Apache y MySQL en XAMPP.
+Navega a [http://localhost/ReelBox/index.php#]
