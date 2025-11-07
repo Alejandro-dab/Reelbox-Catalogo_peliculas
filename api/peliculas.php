@@ -73,9 +73,9 @@ switch ($method) {
             response(400, [], "El título y la sinopsis son campos obligatorios.");
         }
 
-        $nombre_peli = $conexion->real_escape_string($data['nombre_peli']);
-        $imagen_url_peli = $conexion->real_escape_string($data['imagen_url_peli'] ?? 'https://placehold.co/100x150/2563eb/ffffff?text=No+Img');
-        $sinopsis_peli = $conexion->real_escape_string($data['sinopsis_peli']);
+        $nombre_peli = $data['nombre_peli'];
+        $imagen_url_peli = $data['imagen_url_peli'] ?? 'https://placehold.co/100x150/2563eb/ffffff?text=No+Img';
+        $sinopsis_peli = $data['sinopsis_peli'];
 
         $stmt = $conexion->prepare("INSERT INTO Peliculas (nombre_peli, imagen_url_peli, sinopsis_peli) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $nombre_peli, $imagen_url_peli, $sinopsis_peli);
@@ -99,9 +99,9 @@ switch ($method) {
         }
 
         $id_peli = intval($data['id_peli']);
-        $nombre_peli = $conexion->real_escape_string($data['nombre_peli']);
-        $imagen_url_peli = $conexion->real_escape_string($data['imagen_url_peli'] ?? 'https://placehold.co/100x150/2563eb/ffffff?text=No+Img');
-        $sinopsis_peli = $conexion->real_escape_string($data['sinopsis_peli']);
+        $nombre_peli = $data['nombre_peli'];
+        $imagen_url_peli = $data['imagen_url_peli'] ?? 'https://placehold.co/100x150/2563eb/ffffff?text=No+Img';
+        $sinopsis_peli = $data['sinopsis_peli'];
 
         $stmt = $conexion->prepare("UPDATE Peliculas SET nombre_peli = ?, imagen_url_peli = ?, sinopsis_peli = ? WHERE id_peli = ?");
         $stmt->bind_param("sssi", $nombre_peli, $imagen_url_peli, $sinopsis_peli, $id_peli);

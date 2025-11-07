@@ -1,21 +1,37 @@
 <?php
-// Configuración de la base de datos
-$host = "localhost";
-$user = "root";
-// CONTRASEÑA ACTUALIZADA (Según tu captura 'image_2603e8.png')
-$password = "root"; 
-$db_name = "eqh"; // Nombre de la base de datos
+// conexion.php FINAL (PARA RAILWAY Y LOCALHOST)
 
-// Establecer la conexión
-$conexion = @new mysqli($host, $user, $password, $db_name);
-
-// Verificar la conexión y salir si hay error
-if ($conexion->connect_error) {
-    die("<h1>Error de Conexión a la Base de Datos</h1><p>Verifica:</p><ul><li>Que el servidor de MySQL (XAMPP/WAMP) esté corriendo.</li><li>Que la base de datos '{$db_name}' exista.</li><li>Que el usuario ('{$user}') y la contraseña ('{$password}') sean correctos en <b>api/conexion.php</b>.</li></ul><p>Detalle del error: " . $conexion->connect_error . "</p>");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-// Establecer el charset
-$conexion->set_charset("utf8mb4");
+// 1. Leemos la variable DB_HOST de Railway
+$DB_HOST_RAILWAY = getenv('DB_HOST');
 
-// ¡NO DEBE HABER NINGÚN 'ECHO' AQUÍ!
+if ($DB_HOST_RAILWAY) {
+    // ESTAMOS EN RAILWAY (PRODUCCIÓN)
+    // Lee todas las variables de entorno de Railway
+    $DB_HOST = $DB_HOST_RAILWAY;
+    $DB_USER = getenv('DB_USER');
+    $DB_PASS = getenv('DB_PASS');
+    $DB_NAME = getenv('DB_NAME');
+    $DB_PORT = (int)getenv('DB_PORT'); // Convertir a entero
+
+} else {
+    // ESTAMOS EN LOCALHOST
+    // Usa tus credenciales locales (las que usas en Workbench)
+    $DB_HOST = '127.0.0.1'; // O 'localhost'
+    $DB_USER = 'root';      // Tu usuario local
+    $DB_PASS = 'root';          // Tu contraseña local (si no tienes, déjala vacía)
+    $DB_NAME = 'Peliculas';     // El nombre de tu DB local
+    $DB_PORT = 3306;        // Puerto MySQL por defecto
+}
+
+// 2. Conectamos usando las variables correctas
+$conexion = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_PORT);
+
+// 3. Verificamos la conexión
+if (!$conexion) {
+    die("Error al conectarse a la base de datos: " . mysqli_connect_error());
+}
 ?>
