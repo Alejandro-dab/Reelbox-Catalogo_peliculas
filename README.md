@@ -7,7 +7,7 @@ Este proyecto transforma un sistema monolítico tradicional (que recarga la pág
 ## ✨ Características Clave (Enfoque CRUD)
 
 *  Arquitectura Híbrida (Server-Side + Client-Side): La aplicación utiliza una carga inicial renderizada por el servidor (PHP while loop) para un Time-to-Content rápido, mientras que todas las operaciones posteriores (Crear, Eliminar) se manejan asíncronamente en el lado del cliente (JavaScript).
-*  Refactorización a API RESTful: Se migraron múltiples scripts PHP (agregar_titulos.php, delete_titulos.php) a un único endpoint de API (api/peliculas.php) que gestiona la lógica de negocio y responde con JSON.
+*  Respuestas JSON.
 * CRUD Asíncrono (Fetch API): Todas las operaciones de modificación de datos utilizan la Fetch API de JavaScript para comunicarse con el backend sin necesidad de recargar la página.
 * UI Reactiva con SweetAlert2: Se reemplazaron las alertas y confirmaciones nativas del navegador (alert(), confirm()) por modales interactivos y estéticos de SweetAlert2, mejorando drásticamente la UX.
 * Persistencia de Estado en Cliente (localStorage): La funcionalidad "Visto" se gestiona 100% en el cliente, utilizando localStorage para mantener el estado de la UI entre sesiones sin consultar la base de datos.

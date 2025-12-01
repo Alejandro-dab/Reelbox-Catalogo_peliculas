@@ -2,7 +2,7 @@
 // Incluimos la conexión. Si falla, el script muere en conexion.php
 include("api/conexion.php");
 
-// 1. Uso de sintaxis mysqli orientada a objetos para la consulta
+//Uso de sintaxis mysqli orientada a objetos para la consulta
 $query = "SELECT id_peli, nombre_peli, imagen_url_peli, sinopsis_peli FROM Peliculas ORDER BY nombre_peli ASC";
 // Ejecutar la consulta
 $result = $conexion->query($query);
@@ -18,7 +18,7 @@ if ($result === false) {
 <html lang="es">
 <head>
     <title>ReelBox - Catálogo</title>
-    <!-- Se recomienda usar Tailwind CSS como definimos, pero mantenemos tus estilos y enlaces externos por ahora -->
+    <!-- Importación de hoja de estilos -->
     <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
@@ -30,7 +30,7 @@ if ($result === false) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap" rel="stylesheet">
     
-    <!-- Agregamos el script de SweetAlert2 y estilos de Tailwind (si aún los necesitas) -->
+    <!-- Agregamos el script de SweetAlert2 y estilos de Tailwind-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tailwindcss.com"></script> 
 </head>
@@ -50,7 +50,7 @@ if ($result === false) {
                                 <img src="assets/img/icon_añadir_1.png" alt="Agregar Título" class="agregar">
                             </div>
                         </div>
-                        <!-- Reutilizare clases solo para que no queden sin estilo -->
+                        <!-- Reutilicee clases solo para que no queden sin estilo -->
                         <div class="movie-info">
                             <h3 class="movie-title">Agregar</h3>
                             <p class="movie-synopsis">Haz clic para agregar título</p> 
@@ -58,14 +58,14 @@ if ($result === false) {
                     </a>
                 </div>
 
-                <!-- 2. Loop para mostrar las películas usando mysqli orientada a objetos -->
+                <!--Loop para mostrar las películas usando mysqli orientada a objetos -->
                 <?php while ($row = $result->fetch_assoc()) { ?>
                     <div class="caja_contenido" data-id="<?php echo $row['id_peli']; ?>">
                         <div class="movie-actions">
                             
                             <!-- Checkbox Visto -->
                             <div class="flex items-center space-x-1 bg-gray-700 p-1 rounded-md text-white text-sm">
-                                <!-- 2. Quitamos 'disabled' y añadimos 'onchange' -->
+                                <!-- Quitamos 'disabled' y añadimos 'onchange' -->
                                 <input type="checkbox" data-peli-id="<?php echo $row['id_peli']; ?>" class="casilla" 
                                     onchange="handleVisto(<?php echo $row['id_peli']; ?>, this.checked)">
                                 <span>Visto</span>

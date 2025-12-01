@@ -23,15 +23,14 @@ function response($status, $data = [], $message = null) {
     exit();
 }
 
-// =========================================================================
 // Ruteo y Lógica CRUD para la tabla Peliculas
-// =========================================================================
 
 switch ($method) {
     case 'GET':
         // ===================================
         // READ: Obtener Películas
         // ===================================
+        
         $id = isset($_GET['id_peli']) ? intval($_GET['id_peli']) : 0;
         
         // Columnas a seleccionar de la tabla Peliculas
