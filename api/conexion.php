@@ -1,4 +1,5 @@
 <?php
+//Si la sesión no esta iniciada, entonces iniciala
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -20,7 +21,7 @@ if ($DB_HOST_RAILWAY) {
     $DB_HOST = '127.0.0.1'; //O 'localhost'
     $DB_USER = 'root';      //Usuario local
     $DB_PASS = 'root';          //Contraseña local (si no tiene, se déja vacía)
-    $DB_NAME = 'Peliculas';     //DB local
+    $DB_NAME = 'eqh';     //DB local
     $DB_PORT = 3306;        //Puerto MySQL por defecto
 }
 

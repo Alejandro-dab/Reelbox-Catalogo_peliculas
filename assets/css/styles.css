@@ -1,10 +1,75 @@
-/* Estilos para anular la caché del navegador (el astronauta) */
 body {
-    background-color: #111827; /* Un fondo oscuro para el body */
-    background-image: none; /* Asegura que no haya imagen de fondo */
+    background-color: #111827; 
+    background-image: none; 
 }
 
-/* Tus estilos de catálogo */
+/* HEADER */
+
+/* Contiene el logo y los filtros del catálogo.*/
+/* Contenedor principal del encabezado. Usa flexbox para alinear el logo
+    y los filtros en un eje horizontal. 
+*/
+.main-header {
+  display: flex; 
+  align-items: center; /*Centrado vertical*/
+  justify-content: center; /*Centrado horizontal*/
+  padding: 1rem 2rem;
+  background-color: #13151a;   
+   /*Conserva la posición de la barra de navegación al hacer scroll  */
+  position: sticky;             
+  top: 0;
+  z-index: 1000; /*Posiciona el header al frente de los demás elementos*/            
+}
+
+/* FILTRO DE NAVEGACIÓN DE PELICULAS*/
+.nav-filters {
+  justify-content: center; /*Alineación horizontal*/
+  width: 100%;
+  display: flex;
+  gap: 40px; /*Separación entre elementos*/ 
+  margin: 0 50px;    
+}
+
+/* Contenedor logo-imagen */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; /*Espaciado entre la imagen y el titulo*/
+}
+
+/* Logo imagen */
+.logo_img{
+  max-width: 60px; /*Limitación del ancho maximo del logo*/
+  height: auto; /*Conserva la relación de aspecto original de la imagen al escalar su anchop*/
+  border-radius: 50%;
+}
+
+/* Logo titulo */
+.logo h1{
+  color: white;
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif; 
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+/* Estilo botones del header: Todos | Visto | Pendientes */
+.filter-btn {
+  background: none; /*Sin fondo*/
+  border: none;
+  color: #a0a0a0;
+  cursor: pointer; /* Añadido para que parezca clickeable */
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  color: #ffffff;
+  border-bottom: 2px solid #e50914; /* Rayita roja de "activo" */
+}
+
+/* BODY */
+/* Estilos del catalogo */
 .movie-list { 
   display: flex; 
   flex-wrap: wrap; 
@@ -15,7 +80,7 @@ body {
 
 .movie { 
   width: 250px; 
-  height: 350px;
+  height: 320px;
   border: 1px solid #333; 
   border-radius: 8px; 
   overflow: hidden; 
@@ -23,10 +88,13 @@ body {
   color: white; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
   cursor: pointer; /* Añadido para que parezca clickeable */
+  display: flex;
+  flex-direction: column;
 }
 .movie-poster { 
   width: 100%; 
   height: 100%;
+  flex: 1;
   object-fit: cover; 
   background-color: #374151; /* Color de fondo mientras carga la imagen */
 }
