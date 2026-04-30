@@ -45,6 +45,7 @@ if ($result === false) {
     <script src="https://cdn.tailwindcss.com"></script> 
 </head>
 <body>
+    <!-- HEADER -->
     <header class="main-header">
     <!-- Barra de navegación -->
     <nav class="nav-filters">
@@ -62,8 +63,8 @@ if ($result === false) {
 </header>
     <main id="contenido_principal">
         <div class="lista_contenido">
+            <!-- CATALOGO -->
             <div class="movie-list">
-                
                 <!-- Agregar pelicula  -->
                 <div class="movie">
                     <!-- Activador del modal para dar de alta una pelicula -->

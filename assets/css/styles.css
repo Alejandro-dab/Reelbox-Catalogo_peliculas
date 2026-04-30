@@ -1,142 +1,251 @@
 body {
-    background-color: #111827; 
-    background-image: none; 
+    background-color: #111827;
+    background-image: none;
 }
-
+ 
 /* HEADER */
-
-/* Contiene el logo y los filtros del catálogo.*/
-/* Contenedor principal del encabezado. Usa flexbox para alinear el logo
-    y los filtros en un eje horizontal. 
-*/
+/* Contenedor - Barra de navegación, Logos y botones de filtrado */
 .main-header {
-  display: flex; 
-  align-items: center; /*Centrado vertical*/
-  justify-content: center; /*Centrado horizontal*/
-  padding: 1rem 2rem;
-  background-color: #13151a;   
-   /*Conserva la posición de la barra de navegación al hacer scroll  */
-  position: sticky;             
-  top: 0;
-  z-index: 1000; /*Posiciona el header al frente de los demás elementos*/            
-}
-
-/* FILTRO DE NAVEGACIÓN DE PELICULAS*/
-.nav-filters {
-  justify-content: center; /*Alineación horizontal*/
-  width: 100%;
   display: flex;
-  gap: 40px; /*Separación entre elementos*/ 
-  margin: 0 50px;    
+  align-items: center; /*Centrado horizontal*/
+  justify-content: center; /*Centrado vertical*/
+  padding: 1rem 2rem;
+  background-color: #13151a;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-
-/* Contenedor logo-imagen */
+ 
+/*Contenedor - Logo IMG y texto*/
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px; /*Espaciado entre la imagen y el titulo*/
+  gap: 10px;
 }
 
-/* Logo imagen */
-.logo_img{
-  max-width: 60px; /*Limitación del ancho maximo del logo*/
-  height: auto; /*Conserva la relación de aspecto original de la imagen al escalar su anchop*/
+/*Logo IMG*/
+.logo_img {
+  max-width: 60px;
+  height: auto;
   border-radius: 50%;
 }
 
-/* Logo titulo */
-.logo h1{
+/*Logo Texto*/
+.logo h1 {
   color: white;
   font-size: 20px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
   letter-spacing: 2px;
 }
 
-/* Estilo botones del header: Todos | Visto | Pendientes */
+/*Contenedor - Botones para filtar peliculas*/
+.nav-filters {
+  display: flex;
+  justify-content: center;
+  margin: 0 50px;
+  gap: 40px;
+}
+ 
+/*Boton de filtrado - Todos | Visto | Pendiente*/
 .filter-btn {
-  background: none; /*Sin fondo*/
+  background: none;
   border: none;
   color: #a0a0a0;
-  cursor: pointer; /* Añadido para que parezca clickeable */
-  font-size: 1rem;
-  transition: color 0.3s;
+  cursor: pointer; /*Indicador visual de interacción*/
+  font-size: 1rem; /*16px*/
+  transition: color 0.3s; /*Tiempo de activación del hover*/
+  white-space: nowrap; 
 }
-
-.filter-btn:hover, .filter-btn.active {
-  color: #ffffff;
-  border-bottom: 2px solid #e50914; /* Rayita roja de "activo" */
+ 
+/*Botón seleccionado y por seleccionar(cursor)*/
+.filter-btn:hover,
+.filter-btn.active {
+  color: #ffffff; /*Cambio de color de gris a blanco*/
+  border-bottom: 1px solid #e50914; /*Subrayado rojo*/
 }
-
-/* BODY */
-/* Estilos del catalogo */
-.movie-list { 
-  display: flex; 
-  flex-wrap: wrap; 
-  gap: 20px; 
-  justify-content: center; 
-  padding: 20px; 
+ 
+.filter-btn:focus-visible {
+  outline: 1px solid #e50914;
+  outline-offset: 4px;
 }
-
-.movie { 
-  width: 250px; 
-  height: 320px;
-  border: 1px solid #333; 
-  border-radius: 8px; 
-  overflow: hidden; 
-  background-color: #1f2937; 
-  color: white; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
-  cursor: pointer; /* Añadido para que parezca clickeable */
+ 
+ 
+/* ==========================================================================
+   3. CATÁLOGO — Desktop: 6 columnas fijas de 250px (diseño original).
+   ========================================================================== */
+ 
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(6, 250px);
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+ 
+ 
+/* ==========================================================================
+   4. TARJETA — Tamaño y proporciones originales del diseño de escritorio.
+   ========================================================================== */
+ 
+.caja_contenido {
+  position: relative;
+  width: 250px;
+}
+ 
+.movie {
+  width: 250px;
+  height: 350px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1f2937;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
   display: flex;
   flex-direction: column;
 }
-.movie-poster { 
-  width: 100%; 
-  height: 100%;
+ 
+.movie-poster {
+  width: 100%;
   flex: 1;
-  object-fit: cover; 
-  background-color: #374151; /* Color de fondo mientras carga la imagen */
+  object-fit: cover;
+  background-color: #374151;
 }
-.movie-info { 
-  padding: 10px; 
+ 
+.movie-info {
+  display: none;
 }
-.movie-title { 
-  font-size: 1.2em; 
-  font-weight: bold; 
-  margin-bottom: 5px; 
+ 
+.movie-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
-.movie-synopsis { 
-  font-size: 0.9em; 
-  color: #ccc; 
-  max-height: 40px; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+ 
+.movie-synopsis {
+  font-size: 0.9em;
+  color: #ccc;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-
-.caja_contenido { 
-  position: relative; 
+ 
+ 
+/* ==========================================================================
+   5. TARJETA AGREGAR — Excepción: siempre muestra su texto.
+   ========================================================================== */
+ 
+.movie:has(.agregar) .movie-info {
+  display: block;
+  padding: 10px;
 }
-
-.movie-actions { 
-  position: absolute; 
-  top: 10px; 
-  right: 10px; 
-  z-index: 10; 
-  display: flex; 
-  gap: 5px; 
-}
-
-/* Aseguramos que el checkbox no rompa el diseño */
-.casilla { 
-  margin-right: 5px; 
-}
-
-/* Estilos para la imagen de "Agregar" */
+ 
 .agregar {
-  height: 150px; 
-  width: 100%; 
-  object-fit: contain; 
-  padding: 20px; 
+  width: 100%;
+  flex: 1;
+  object-fit: contain;
+  padding: 20px;
   box-sizing: border-box;
+}
+ 
+ 
+/* ==========================================================================
+   6. ACCIONES SOBRE TARJETA — Tamaño original de escritorio.
+   ========================================================================== */
+ 
+.movie-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  display: flex;
+  gap: 5px;
+}
+ 
+.casilla {
+  margin-right: 2px;
+}
+ 
+ 
+/* ==========================================================================
+   7. MEDIA QUERY MÓVIL — max-width: 767px
+   Solo sobreescribimos lo que cambia. Todo lo demás hereda del desktop.
+   ========================================================================== */
+ 
+@media (max-width: 767px) {
+ 
+  /* Header: reducimos tamaños para que quepa en pantalla angosta */
+  .main-header {
+    padding: 0.75rem 1rem;
+  }
+ 
+  .logo_img {
+    max-width: 36px;
+  }
+ 
+  .logo h1 {
+    font-size: 14px;
+  }
+ 
+  .nav-filters {
+    margin: 0 12px;
+    gap: 14px;
+  }
+ 
+  .filter-btn {
+    font-size: 0.8rem;
+  }
+ 
+  /* Catálogo: 3 columnas fluidas en móvil */
+  .movie-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 10px;
+  }
+ 
+  /* Tarjeta: fluida y más baja en móvil */
+  .caja_contenido {
+    width: 100%;
+  }
+ 
+  .movie {
+    width: 100%;
+    height: 150px;
+  }
+ 
+  /* Acciones más compactas para no tapar la imagen */
+  .movie-actions {
+    top: 5px;
+    right: 5px;
+    gap: 3px;
+  }
+ 
+  .movie-actions .flex {
+    font-size: 0.65rem;
+    padding: 1px 3px;
+  }
+ 
+  .casilla {
+    margin-right: 2px;
+  }
+ 
+  /* Tarjeta Agregar */
+  .agregar {
+    padding: 10px;
+  }
+ 
+  .movie:has(.agregar) .movie-info {
+    padding: 6px 8px;
+  }
+ 
+  .movie:has(.agregar) .movie-title {
+    font-size: 0.85em;
+  }
+ 
+  .movie:has(.agregar) .movie-synopsis {
+    font-size: 0.7em;
+  }
 }
