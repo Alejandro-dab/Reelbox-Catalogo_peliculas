@@ -1,3 +1,21 @@
+//APLICAR filtro
+
+function aplicarFiltroActivo() {
+  const botonActivo = document.querySelector(".filter-btn.active");
+  if (!botonActivo) return; // seguridad: si no hay botón activo, salir
+  const filtro = botonActivo.textContent.toLowerCase().trim();
+  document.querySelectorAll(".caja_contenido").forEach(function (tarjeta) {
+    const estaVisto = tarjeta.classList.contains("visto"); // true si la tarjeta tiene la clase "visto"
+    if (filtro === "todos") {
+      tarjeta.style.display = "";      // "" restaura el display original (no oculta nada)
+    } else if (filtro === "vistos") {
+      tarjeta.style.display = estaVisto ? "" : "none";  // muestra solo las marcadas
+    } else if (filtro === "pendientes") {
+      tarjeta.style.display = !estaVisto ? "" : "none"; // muestra solo las NO marcadas
+    }
+  });
+}
+
 /**
  * Guarda el estado 'Visto' en localStorage.
  * Esta función se define globalmente para que 'onchange' pueda encontrarla.
@@ -5,58 +23,56 @@
 function handleVisto(id_peli, isChecked) {
     const key = `visto-${id_peli}`;
     localStorage.setItem(key, isChecked ? 'true' : 'false');
+
+    const tarjeta = document.querySelector(`.caja_contenido[data-id="${id_peli}"]`);
+    if (!tarjeta) return;
+
+    if (isChecked){
+      tarjeta.classList.add("visto");    // marcada → tarjeta queda como "vista"
+    } else{
+      tarjeta.classList.remove("visto"); // desmarcada → vuelve a ser "pendiente"
+    }
+    // Llama al motor de filtrado para que la tarjeta se muestre/oculte de inmediato si hay un filtro activo distinto a "Todos"
+    aplicarFiltroActivo();
 }
 
 /**
  * Carga el estado 'Visto' de localStorage.
  * Esta función es llamada directamente al final del script.
  */
-function checkVistoStatus() {
-    document.querySelectorAll(".casilla").forEach(function (checkbox) {
-        var peliId = checkbox.dataset.peliId;
-        var checkboxState = localStorage.getItem(`visto-${peliId}`);
+function checkVistoStatus(){
+  document.querySelectorAll(".caja_contenido").forEach(function (tarjeta){
+    const id = tarjeta.dataset.id; 
+    const checkbox = tarjeta.querySelector(".casilla");
+    if (!checkbox || !id) return;
+    const estadoGuardado = localStorage.getItem(`visto-${id}`);
+    const estaVisto = estadoGuardado === "true";
 
-        // Asignación booleana directa (más limpio)
-        checkbox.checked = (checkboxState === "true");
-    });
+    if (estaVisto) {
+      tarjeta.classList.add("visto");    // agrega la clase que usan los filtros
+    } else{
+      tarjeta.classList.remove("visto"); // asegura que no quede la clase por error
+    }
+  });
 }
 
-// 1. Exportar la función 'handleVisto' para que sea accesible desde el HTML (onchange)
+// Exportar la función 'handleVisto' para que sea accesible desde el HTML (onchange)
 window.handleVisto = handleVisto;
 
-// 2. CORRECCIÓN: Ejecutar la revisión directamente.
+// Ejecuta la revisión directamente.
 // El atributo 'defer' en index.php se asegura de que esto se ejecute
 // DESPUÉS de que el DOM esté 100% cargado.
 checkVistoStatus();
 
-// 1. Seleccionamos los nuevos botones por su clase específica
+
+
+// Seleccionamos los nuevos botones por su clase específica
 const filterButtons = document.querySelectorAll('.filter-btn');
-// 2. Seleccionamos tus tarjetas (asegúrate de que tus portadas tengan la clase .movie-card)
-const movieCards = document.querySelectorAll('.movie-card'); 
 
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
-    // Manejo visual de los botones (el que clickeas se pone blanco/rojo)
     filterButtons.forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
-
-    // Obtenemos el texto del botón en minúsculas para comparar
-    // O mejor aún, si le pones un id o data-attribute:
-    const filterValue = button.textContent.toLowerCase().trim();
-
-    movieCards.forEach(card => {
-      // Lógica de filtrado
-      const isVisto = card.classList.contains('visto'); 
-
-      if (filterValue === 'todos') {
-        card.style.display = 'block'; // O 'flex' según tu diseño
-      } else if (filterValue === 'vistos' && isVisto) {
-        card.style.display = 'block';
-      } else if (filterValue === 'pendientes' && !isVisto) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none'; // Aquí es donde se ocultan
-      }
-    });
+    aplicarFiltroActivo();
   });
 });

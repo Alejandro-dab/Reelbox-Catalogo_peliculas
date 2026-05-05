@@ -99,7 +99,7 @@ if ($result === false) {
                                      Esto pasa cada vez que se marca o desmarca el checkbox
                                 -->
                                 <input type="checkbox" data-peli-id="<?php echo $row['id_peli']; ?>" class="casilla" 
-                                onchange="handleVisto(<?php echo $row['id_peli']; ?>, this.checked)">
+                                onchange="handleVisto('<?php echo $row['id_peli']; ?>', this.checked)">
                                 <!-- Span esta dentro del label y puede activar el checbox -->
                                 <span>Visto</span> 
                             </label>
@@ -142,7 +142,7 @@ if ($result === false) {
     </main>
 
 <!-- Rutas de scripts y ejecución en segundo plano, despues del HTML  -->
-<script src="assets/js/visto.js" defer></script>
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/visto.js"></script>
 </body>
 </html>
