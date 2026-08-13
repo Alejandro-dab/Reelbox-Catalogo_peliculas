@@ -8,7 +8,7 @@ function aplicarFiltroActivo() {
     const estaVisto = tarjeta.classList.contains("visto"); // true si la tarjeta tiene la clase "visto"
     if (filtro === "todos") {
       tarjeta.style.display = "";      // "" restaura el display original (no oculta nada)
-    } else if (filtro === "vistos") {
+    } else if (filtro === "vistas") {
       tarjeta.style.display = estaVisto ? "" : "none";  // muestra solo las marcadas
     } else if (filtro === "pendientes") {
       tarjeta.style.display = !estaVisto ? "" : "none"; // muestra solo las NO marcadas
@@ -47,6 +47,9 @@ function checkVistoStatus(){
     if (!checkbox || !id) return;
     const estadoGuardado = localStorage.getItem(`visto-${id}`);
     const estaVisto = estadoGuardado === "true";
+
+    //Esta visto ya es un booleano 
+    checkbox.checked = estaVisto; //Renderiza con base en lo que estaba en localStorage
 
     if (estaVisto) {
       tarjeta.classList.add("visto");    // agrega la clase que usan los filtros

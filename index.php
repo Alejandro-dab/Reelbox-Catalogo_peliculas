@@ -57,7 +57,7 @@ if ($result === false) {
 
         <!-- Botones de filtrado -->
         <button class="filter-btn active">Todos</button> <!-- Boton "Todos" activado por defecto -->
-        <button class="filter-btn">Vistos</button>
+        <button class="filter-btn">Vistas</button>
         <button class="filter-btn">Pendientes</button>
     </nav>
 </header>
@@ -101,7 +101,7 @@ if ($result === false) {
                                 <input type="checkbox" data-peli-id="<?php echo $row['id_peli']; ?>" class="casilla" 
                                 onchange="handleVisto('<?php echo $row['id_peli']; ?>', this.checked)">
                                 <!-- Span esta dentro del label y puede activar el checbox -->
-                                <span>Visto</span> 
+                                <span>Vista</span> 
                             </label>
 
                             <!--Llama a handleDelete() en main.js pasando el evento, el ID
