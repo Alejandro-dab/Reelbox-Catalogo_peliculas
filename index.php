@@ -39,7 +39,7 @@ if ($result === false) {
     <!-- Importa la fuente Zen Antique usada por la interfaz. -->
     <link href="https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap" rel="stylesheet">
     
-    <!-- Carga de Sweetalert2 para alertas por medio de CDN-->
+    <!-- Carga de Sweetalert2 para alertas por medio de CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Carga de TailwindCSS para unidades de estilo por medio de CDN -->
     <script src="https://cdn.tailwindcss.com"></script> 
@@ -142,7 +142,7 @@ if ($result === false) {
     </main>
 
 <!-- Rutas de scripts y ejecución en segundo plano, despues del HTML  -->
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js"></script> 
 <script src="assets/js/visto.js"></script>
 </body>
 </html>
