@@ -55,3 +55,4 @@ if($SSL){
 if(!$conexion){ //Si la conexion falla
     die('Error al conectarse a la base de datos'.mysqli_connect_error());
 }
+?>
