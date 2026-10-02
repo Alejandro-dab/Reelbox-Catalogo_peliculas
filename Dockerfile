@@ -1,4 +1,5 @@
-FROM php:8.5-apache
+#php:8.5 no es estable para Docker
+FROM php:8.3-apache
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
@@ -8,4 +9,7 @@ RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 
-CMD ["/bin/sh", "-c", "a2dismod mpm_event mpm_worker 2>/dev/null; a2enmod mpm_prefork 2>/dev/null; apache2-foreground"]
+CMD ["/bin/sh", "-c", \
+    "a2dismod mpm_event mpm_worker 2>/dev/null; \
+    a2enmod mpm_prefork 2>/dev/null; \
+    apache2-foreground"]
